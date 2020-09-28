@@ -26,14 +26,14 @@ then
 fi
 
 # On compresse le fichier
-tar -czf $backup_name$(date '+%Y%m%d_%H%M').tar.gz --absolute-names $1/index.html
+tar -czf ${backup_name}$(date '+%Y%m%d_%H%M').tar.gz --absolute-names ${1}/index.html
 
 # On déplace le fichier qui vient d'être créé
-mv $backup_name$(date '+%Y%m%d_%H%M').tar.gz $destination
+mv ${backup_name}$(date '+%Y%m%d_%H%M').tar.gz ${destination}
 
 # On rentre dans la boucle s'il y a plus de 7 fichier dans le dossier
-if [[ $(ls -Al $destination | wc -l) > 7 ]]
+if [[ $(ls -Al ${destination} | wc -l) > 7 ]]
 then
-        rm $destination/$(ls -tr1 $destination | grep -m 1 "")
+        rm ${destination}/$(ls -tr1 ${destination} | grep -m 1 "")
 fi
 
