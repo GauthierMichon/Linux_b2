@@ -1,29 +1,39 @@
 #!/bin/bash
 
-#On rentre dans la boucle si l'argument est /srv/site1
-if [ $1 = /srv/site1 ]
-then
-        backup=site1_
-        dest=/sauvegarde/site1
+# On crée une variable qui va récupérer la fin de l'argument
+# Si l'argument est /toto/tata/titi, alors on récupère titi
+backup_name="$(basename $1)"
 
-#On rentre dans la boucle si l'argument est /srv/site2	
-elif [ $1 = /srv/site2 ]
+# On crée une variable qui sera la destination de notre fichier de sauvegarde
+destination="/sauvegarde/${backup_name}"
+
+if [ ! -d ${1} ]
 then
-        backup=site2_
-        dest=/sauvegarde/site2
+        echo "le dossier demandé n'existe pas $1"
+        exit 1
 fi
 
-#On compresse le fichier
-tar -czf $backup$(date '+%Y%m%d_%H%M').tar.gz --absolute-names $1/index.html
-
-#On move le fichier compressé
-mv $backup$(date '+%Y%m%d_%H%M').tar.gz $dest
-
-#On rentre dans la boucle s'il y a plus de 7 fichier dans le dossier
-if [[ $(ls -Al $dest | wc -l) > 7 ]]
+# On rentre dans la boucle si le dossier est vide
+if [ ! -e ${1}/index.html ]
 then
-	#On supprime le fichier le plus ancien
-        rm $dest/$(ls -tr1 $dest | grep -m 1 "")
+        echo "le dossier demandé ne contient pas d'index.html"
+        exit 1
 fi
 
+if [ ! -d ${destination} ]
+then
+        mkdir ${destination}
+fi
+
+# On compresse le fichier
+tar -czf $backup_name$(date '+%Y%m%d_%H%M').tar.gz --absolute-names $1/index.html
+
+# On déplace le fichier qui vient d'être créé
+mv $backup_name$(date '+%Y%m%d_%H%M').tar.gz $destination
+
+# On rentre dans la boucle s'il y a plus de 7 fichier dans le dossier
+if [[ $(ls -Al $destination | wc -l) > 7 ]]
+then
+        rm $destination/$(ls -tr1 $destination | grep -m 1 "")
+fi
 
