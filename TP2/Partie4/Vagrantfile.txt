@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
     end
 
     # Exécution d'un script au démarrage de la VM
-    node1.vm.provision "shell", path: "script_node1.sh", run: 'always'
+    node1.vm.provision "shell", path: "script_node1.sh"
 
 
   end
@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
     end
   
     # Exécution d'un script au démarrage de la VM
-    node2.vm.provision "shell", path: "script_node2.sh", run: 'always'
+    node2.vm.provision "shell", path: "script_node2.sh"
 
   end
 

@@ -9,16 +9,18 @@ mkdir /srv/site2
 touch /srv/site1/index.html
 touch /srv/site2/index.html
 
+# On met les permissions
 chmod -R 755 /srv/site1
 chmod -R 755 /srv/site2
 
 chown -R vagrant:vagrant /srv/site1
 chown -R vagrant:vagrant /srv/site1
 
-
 firewall-cmd --zone=public --add-service=http
 firewall-cmd --zone=public --add-service=https
 
+
+# On config nginx
 echo "worker_processes 1;
 error_log nginx_error.log;
 events {
@@ -84,6 +86,7 @@ server {
 echo "Index site 1" > /srv/site1/index.html
 echo "Index site 2" > /srv/site2/index.html
 
+# On crée un certificat
 openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout server.key -out server.crt -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=node1.tp2.b2"
 
 mv server.crt /etc/nginx
@@ -99,7 +102,7 @@ mkdir sauvegarde/site2
 
 adduser backup
 
-
+# On config le script de backup
 echo '#!/bin/bash
 
 # On crée une variable qui va récupérer la fin de l argument
@@ -146,8 +149,12 @@ sudo yum install crontabs
 
 sudo systemctl start crond.service
 
-# bash <(curl -Ss https://my-netdata.io/kickstart.sh)
+# on installe netdata
+bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait
 
-# sudo firewall-cmd --add-port=19999/tcp --permanent
+sudo firewall-cmd --add-port=19999/tcp --permanent
 
-# sed -i -r 's/.*DISCORD_WEBHOOK_URL=""*/DISCORD_WEBHOOK_URL="https://discordapp.com/api/webhooks/760131802974257172/AwU3v6x04oTd0QyBiVqXCtNsE_ieJE_BJ6Ig6GDee36NKjjG7O8iPu45zFqOtgPKkSpI"/g' /etc/netdata/edit-config health_alarm_notify.conf
+sudo firewall-cmd --reload
+
+firewall-cmd --zone=public --add-service=http
+firewall-cmd --zone=public --add-service=https
