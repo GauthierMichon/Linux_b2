@@ -145,16 +145,16 @@ fi
 
 chmod +x tp2.script.sh
 
-sudo yum install crontabs
+yum install crontabs
 
-sudo systemctl start crond.service
+systemctl start crond.service
 
 # on installe netdata
 bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait
 
-sudo firewall-cmd --add-port=19999/tcp --permanent
+firewall-cmd --add-port=19999/tcp --permanent
 
-sudo firewall-cmd --reload
+firewall-cmd --reload
 
 firewall-cmd --zone=public --add-service=http
 firewall-cmd --zone=public --add-service=https
