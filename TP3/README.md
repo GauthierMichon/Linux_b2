@@ -1,5 +1,18 @@
 # README
 
+## Quelques infos et commandes à faire
+
+#### Quelques infos sur le git
+
+Dans le dossier scripts/ du git, vous trouverez le script exécuter par le vagrantfile au démarrage de la machine.
+
+Dans le dossier systemd/units/ du git, vous trouverez les fichiers d'unité systemd.
+
+Dans le dossier scripts_tp/ du git, vous trouverez les scripts qui sont exécutés pendant le TP.
+
+
+#### Quelques commandes à effectué avant de commencer le TP
+
 Avant tout il faut désactiver selinux.
 On fait un `sudo setenforce 0`.
 Ensuite, on change le fichier `/etc/selinux/config` pour qu'il ressemble à ça : 
