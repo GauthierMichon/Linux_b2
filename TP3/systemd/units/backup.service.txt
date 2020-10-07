@@ -1,0 +1,15 @@
+[Unit]
+Description=Backup du tp3
+
+[Service]
+Type=simple
+User=backup
+RemainAfterExit=yes
+PIDFILE=/var/run/backup.pid
+ExecStartPre=sudo /home/vagrant/pre_backup.sh
+ExecStart=sudo /home/vagrant/backup.sh
+ExecStartPost=sudo /home/vagrant/after_backup.sh
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

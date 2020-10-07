@@ -1,0 +1,14 @@
+[Unit]
+Description=Service du tp3
+
+[Service]
+User=user2
+Type=simple
+RemainAfterExit=yes
+Environment="PORT=7777"
+ExecStartPre=sudo /usr/local/bin/start.sh
+ExecStart=sudo /usr/bin/python3 -m http.server ${PORT}
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStopPre=/usr/local/bin/stop.sh                                                                                  
+[Install]
+WantedBy=multi-user.target
