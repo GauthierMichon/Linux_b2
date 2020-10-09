@@ -225,6 +225,12 @@ On fait nos scripts :
 ```
 (Le contenu des scripts se trouve sur le git dans scripts_tp/)
 
+On change les permissions sur les scripts : 
+```
+sudo chown user2:user2 /usr/local/bin/start.sh
+sudo chown user2:user2 /usr/local/bin/stop.sh
+```
+
 
 ###### Lancer le service
 
@@ -317,13 +323,20 @@ On rempli l'index.html pour la forme.
 Index site1
 ```
 
-
+On met le contenu des scripts qui sont exécuter pendant le service : 
 ```
 [vagrant@node1 ~]$ sudo vim pre_backup.sh
 [vagrant@node1 ~]$ sudo vim backup.sh
 [vagrant@node1 ~]$ sudo vim after_backup.sh
 ```
 (Le contenu des scripts se trouve sur le git dans scripts_tp/)
+
+On change les permissions sur les scripts : 
+```
+sudo chown backup:backup pre_backup.sh
+sudo chown backup:backup backup.sh
+sudo chown backup:backup after_backup.sh
+```
 
 
 ###### Ecrire un fichier .timer systemd
