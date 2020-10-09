@@ -17,7 +17,7 @@ Avant tout il faut désactiver selinux.
 On fait un `sudo setenforce 0`.
 Ensuite, on change le fichier `/etc/selinux/config` pour qu'il ressemble à ça : 
 ```
-[vagrant@node1 ~]$ cat /etc/selinux/config
+[vagrant@node1 ~]$ cat /etc/selinux/cosnfig
 
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
@@ -225,7 +225,7 @@ On fait nos scripts :
 ```
 (Le contenu des scripts se trouve sur le git dans scripts_tp/)
 
-On change les permissions sur les scripts : 
+On change le propriétaire des scripts : 
 ```
 sudo chown user2:user2 /usr/local/bin/start.sh
 sudo chown user2:user2 /usr/local/bin/stop.sh
@@ -331,7 +331,7 @@ On met le contenu des scripts qui sont exécuter pendant le service :
 ```
 (Le contenu des scripts se trouve sur le git dans scripts_tp/)
 
-On change les permissions sur les scripts : 
+On change le propriétaire des scripts : 
 ```
 sudo chown backup:backup pre_backup.sh
 sudo chown backup:backup backup.sh
