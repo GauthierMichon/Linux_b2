@@ -1,0 +1,69 @@
+Vagrant.configure("2") do |config|
+
+  # Configuration commune à toutes les machines
+  config.vm.box = "b2-tp4-centos"
+
+  # Config une VM "gitea"
+  config.vm.define "gitea" do |gitea|
+    # remarquez l'utilisation de 'gitea.' défini sur la ligne au dessus
+    gitea.vm.network "private_network", ip: "192.168.4.11"
+
+    gitea.vm.hostname = "gitea.tp4.b2"
+
+    gitea.vm.provider :virtualbox do |vb|
+      vb.name = "gitea"
+    end
+
+    gitea.vm.provision "shell", path: "scripts/script_gitea.sh"
+
+  end
+
+
+  # Config une VM "mariadb"
+  config.vm.define "mariadb" do |mariadb|
+    # remarquez l'utilisation de 'mariadb.' défini sur la ligne au dessus
+    mariadb.vm.network "private_network", ip: "192.168.4.12"
+
+    mariadb.vm.hostname = "mariadb.tp4.b2"
+
+    mariadb.vm.provider :virtualbox do |vb|
+      vb.name = "mariadb"
+    end
+
+    mariadb.vm.provision "shell", path: "scripts/script_mariadb.sh"
+
+  end
+
+
+  # Config une VM "nginx"
+  config.vm.define "nginx" do |nginx|
+    # remarquez l'utilisation de 'nginx.' défini sur la ligne au dessus
+    nginx.vm.network "private_network", ip: "192.168.4.13"
+
+    nginx.vm.hostname = "nginx.tp4.b2"
+
+    nginx.vm.provider :virtualbox do |vb|
+      vb.name = "nginx"
+    end
+
+    nginx.vm.provision "shell", path: "scripts/script_nginx.sh"
+
+  end
+
+
+  # Config une VM "nfs"
+  config.vm.define "nfs" do |nfs|
+    # remarquez l'utilisation de 'nfs.' défini sur la ligne au dessus
+    nfs.vm.network "private_network", ip: "192.168.4.14"
+
+    nfs.vm.hostname = "nfs.tp4.b2"
+
+    nfs.vm.provider :virtualbox do |vb|
+      vb.name = "nfs"
+    end
+
+    nfs.vm.provision "shell", path: "scripts/script_nfs.sh"
+
+  end
+
+end
