@@ -8,6 +8,7 @@ On install vim : `sudo yum -y install vim`.
 
 Pour désactiver selinux, on fait un `sudo setenforce 0`. Ensuite, on change le fichier /etc/selinux/config pour qu'il ressemble à ça :
 
+```
 [vagrant@node1 ~]$ cat /etc/selinux/cosnfig
 
 # This file controls the state of SELinux on the system.
@@ -21,6 +22,7 @@ SELINUX=permissive
 #     minimum - Modification of targeted policy. Only selected processes are protected.
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
+```
 
 Et on, on active le firewall a chaque démarrage : `sudo systemctl enable firewalld`.
 
